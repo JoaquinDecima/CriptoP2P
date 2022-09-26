@@ -8,4 +8,7 @@ import org.springframework.stereotype.Service
 class UserService (private val userRepository: UserRepository){
     fun getAllUsers(): MutableList<User> = userRepository.findAll()
     fun saveUser(user: User) = userRepository.save(user)
+    fun getUserById(id: String): User {
+        return userRepository.findById(id).get()
+    }
 }
