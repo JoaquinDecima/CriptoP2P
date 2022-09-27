@@ -136,7 +136,7 @@
 						<configuration>
 							<classifier>spring-boot</classifier>
 							<mainClass>
-								com.baeldung.executable.ExecutableMavenJar
+								ar.edu.unq.desapp.grupoe.backenddesappapi.BackendDesappApiApplication
 							</mainClass>
 						</configuration>
 					</execution>
