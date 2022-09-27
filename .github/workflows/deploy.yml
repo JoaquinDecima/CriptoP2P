@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master # Changing the branch here would also work
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots verify --file pom.xml
+      - name: Deploy
+        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: "backend-desapp"
+        heroku_email: "joaquin.decima@gmail.com"
+        procfile: "web: java $JAVA_TOOL_OPTIONS -jar target/backend-desapp-api-0.0.1-SNAPSHOT.jar --spring.profiles.active=heroku"
