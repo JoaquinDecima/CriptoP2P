@@ -1,0 +1,24 @@
+{
+  "name": "backend-desapp-api",
+  "version": "0.0.1",
+  "description": "Backend Desarrollo de aplicaciones UNQ",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoaquinDecima/backend-desapp-api.git"
+  },
+  "keywords": [
+    "unq",
+    "backend",
+    "cripto"
+  ],
+  "author": "Joaquin (Pato)",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/JoaquinDecima/backend-desapp-api/issues"
+  },
+  "homepage": "https://github.com/JoaquinDecima/backend-desapp-api#readme"
+}
