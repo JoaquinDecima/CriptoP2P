@@ -22,7 +22,7 @@ userRouter.get('/', (req, res) => {
         res.json(users);
     })
         .catch(err => {
-            res.status(500).json({ error: err });
+            res.status(500).json({ error: err.message });
         });
 });
 
@@ -52,7 +52,7 @@ userRouter.get('/:id', (req, res) => {
         res.json(user);
     })
     .catch(err => {
-        res.status(500).json({ error: err });
+        res.status(500).json({ error: err.message });
     });
 });
 
@@ -121,7 +121,7 @@ userRouter.post('/', (req, res) => {
             res.json(user);
         })
         .catch(err => {
-            res.status(500).json({ error: err });
+            res.status(500).json({ error: err.message });
         });
 });
 

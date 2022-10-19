@@ -15,11 +15,11 @@ class UserService {
     return User.findById(id);
   }
 
-  createUser(user) {
+  async createUser(user) {
     const actualPass = user.password;
     validatePassword(actualPass);
-    user.password = bcrypt.hashSync(actualPass, this.salt);
-    return User.create(user);
+    user.password = await bcrypt.hash(actualPass, this.salt);
+    return await User.create(user);
   }
 }
 
