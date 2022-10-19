@@ -1,8 +1,9 @@
 export const swaggerConf = {
     swaggerDefinition: {
+        openapi: '3.0.0',
         info: {
             title: 'API Documentation DesApp',
-            version: '1.0.0',
+            version: '0.1.0',
             description: 'API Documentation Desarrollo de Aplicaciones - UNQ',
             contact: {
                 name: 'Joaquin (Pato) Decima',
@@ -13,6 +14,6 @@ export const swaggerConf = {
     },
     basePath: '/docs',
     apis: [
-        '../router/*.js',
+        'src/router/*Router.js',
     ],
 };
