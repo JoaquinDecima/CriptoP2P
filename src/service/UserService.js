@@ -21,6 +21,17 @@ class UserService {
     user.password = await bcrypt.hash(actualPass, this.salt);
     return await User.create(user);
   }
+
+  async authUser(email, password) {
+    const user = await User.findOne({ email });
+    if (user) {
+      const isValid = await bcrypt.compare(password, user.password);
+      if (isValid) {
+        return user;
+      }
+    }
+    throw new Error("Invalid credentials");
+  }
 }
 
 export default new UserService();
