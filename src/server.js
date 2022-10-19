@@ -5,6 +5,7 @@ import swaggerUi from 'swagger-ui-express';
 
 import { environment } from './config/enviroment.js';
 import { swaggerConf } from './config/swaggerConf.js';
+import authRouter from './router/AuthRouter.js';
 import userRouter from './router/UserRouter.js';
 
 // Create Express server
@@ -23,6 +24,7 @@ const swaggerDefinition = swaggerJSDoc(swaggerConf);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 // Routes
+app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 
 app.listen(port, () => {
