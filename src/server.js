@@ -3,8 +3,9 @@ import mongoose from 'mongoose';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
-import { environment } from './config/enviroment';
-import { swaggerConf } from './config/swaggerConf';
+import { environment } from './config/enviroment.js';
+import { swaggerConf } from './config/swaggerConf.js';
+import userRouter from './router/UserRouter.js';
 
 // Create Express server
 const app = express();
@@ -20,6 +21,9 @@ app.use(express.json());
 // Swagger configuration
 const swaggerDefinition = swaggerJSDoc(swaggerConf);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+
+// Routes
+app.use('/user', userRouter);
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
