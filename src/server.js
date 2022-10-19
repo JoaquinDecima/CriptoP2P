@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
@@ -8,6 +9,9 @@ import { swaggerConf } from './config/swaggerConf';
 // Create Express server
 const app = express();
 const port = environment.PORT;
+
+// MongoDB connection
+mongoose.connect(process.env.MONGODB_HOST);
 
 // Express configuration
 app.use(express.urlencoded({ extended: true }));

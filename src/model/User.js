@@ -40,6 +40,7 @@ const UserSchema = new mongoose.Schema({
     wallet: {
         type: String,
         required: true,
+        unique: true,
         min: 8,
         max: 8,
     },
