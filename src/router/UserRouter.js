@@ -5,12 +5,12 @@ import UserService from '../service/UserService.js';
 const userRouter = express.Router();
 
 /**
- * @swagger
+ * @openapi
  * /api/user:
  *      get:
  *          description: Get all users
  *          produces:
- *          - application/json
+ *              - application/json
  *          responses:
  *              200:
  *                  description: An array of users
@@ -30,15 +30,14 @@ userRouter.get('/', (req, res) => {
  * @openapi
  * /api/user/{id}:
  *      get:
- *          description: Get user by id
+ *          description: Get an user by id
  *          produces:
- *          - application/json
+ *              - application/json
  *          parameters:
- *          - in: path
- *              name: id
- *              type: string
- *              description: The id of the user.
- *              required: true
+ *              - in: path
+ *                name: id
+ *                description: "The id of the user"
+ *                required: true
  *          responses:
  *              200:
  *                  description: An array of users
