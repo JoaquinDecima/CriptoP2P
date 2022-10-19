@@ -6,16 +6,46 @@ const userRouter = express.Router();
 
 /**
  * @openapi
+ * tags:
+ *   name: User
+ *   description: User Management
+ * */
+
+/** 
+ * @openapi
+ * definitions:
+ *      User:
+ *          type: object
+ *          properties:
+ *              name:
+ *                  type: string
+ *              lastname:
+ *                  type: string
+ *              email:
+ *                  type: string
+ *              addres:
+ *                  type: string
+ *              password:
+ *                  type: string
+ *              cvu:
+ *                  type: string
+ *              wallet:
+ *                  type: string
+ */
+
+/**
+ * @openapi
  * /api/user:
  *      get:
  *          description: Get all users
+ *          tags: [User]
  *          produces:
  *              - application/json
  *          responses:
  *              200:
  *                  description: An array of users
- *                  schema: [{ name:string, lastname:string, email:string, addres:string, password:string, cvu:string, wallet:string }]
- *                  type: application/json
+ *                  schema: 
+ *                     $ref: '#/definitions/User'
  * */
 userRouter.get('/', (req, res) => {
     UserService.getAllUsers().then(users => {
@@ -31,6 +61,7 @@ userRouter.get('/', (req, res) => {
  * /api/user/{id}:
  *      get:
  *          description: Get an user by id
+ *          tags: [User]
  *          produces:
  *              - application/json
  *          parameters:
@@ -41,8 +72,8 @@ userRouter.get('/', (req, res) => {
  *          responses:
  *              200:
  *                  description: An array of users
- *                  schema: [{ name:string, lastname:string, email:string, addres:string, password:string, cvu:string, wallet:string }]
- *                  type: application/json
+ *                  schema: 
+ *                      $ref: '#/definitions/User'
  * 
  */
 
@@ -62,6 +93,7 @@ userRouter.get('/:id', (req, res) => {
  * /api/user:
  *      post:
  *          description: Create a new user
+ *          tags: [User]
  *          produces:
  *              - application/json
  *          parameters:
@@ -70,42 +102,12 @@ userRouter.get('/:id', (req, res) => {
  *                description: The user to create.
  *                required: true
  *                schema:
- *                  type: object
- *                  properties:
- *                      name:
- *                          type: string
- *                      lastname:
- *                          type: string
- *                      email:
- *                          type: string
- *                      addres:
- *                          type: string
- *                      password:
- *                          type: string
- *                      cvu:
- *                          type: string
- *                      wallet:
- *                          type: string
+ *                  $ref: '#/definitions/User'
  *          responses:
  *              200:
  *                  description: The user was successfully created
  *                  schema:
- *                      type: object
- *                      properties:
- *                          name:
- *                              type: string
- *                          lastname:
- *                              type: string
- *                          email:
- *                              type: string
- *                          addres:
- *                              type: string
- *                          password:
- *                              type: string
- *                          cvu:
- *                              type: string
- *                          wallet:
- *                              type: string
+ *                      $ref: '#/definitions/User'
  *              500:
  *                  description: Some server error
  *                  schema:
