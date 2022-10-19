@@ -56,4 +56,73 @@ userRouter.get('/:id', (req, res) => {
     });
 });
 
+
+/**
+ * @openapi
+ * /api/user:
+ *      post:
+ *          description: Create a new user
+ *          produces:
+ *              - application/json
+ *          parameters:
+ *              - in: body
+ *                name: user
+ *                description: The user to create.
+ *                required: true
+ *                schema:
+ *                  type: object
+ *                  properties:
+ *                      name:
+ *                          type: string
+ *                      lastname:
+ *                          type: string
+ *                      email:
+ *                          type: string
+ *                      addres:
+ *                          type: string
+ *                      password:
+ *                          type: string
+ *                      cvu:
+ *                          type: string
+ *                      wallet:
+ *                          type: string
+ *          responses:
+ *              200:
+ *                  description: The user was successfully created
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          name:
+ *                              type: string
+ *                          lastname:
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                          addres:
+ *                              type: string
+ *                          password:
+ *                              type: string
+ *                          cvu:
+ *                              type: string
+ *                          wallet:
+ *                              type: string
+ *              500:
+ *                  description: Some server error
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          error:
+ *                              type: string
+ * */
+
+userRouter.post('/', (req, res) => {
+    UserService.createUser(req.body)
+        .then(user => {
+            res.json(user);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err });
+        });
+});
+
 export default userRouter;
