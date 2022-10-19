@@ -7,19 +7,15 @@ const userRouter = express.Router();
 /**
  * @swagger
  * /api/user:
- *  get:
- *      description: Get all users
- *      produces:
- *      - application/json
- *      properties:
- *         - in: body
- *           name: string
- *          description: The name of the user.
- *      responses:
- *          200:
- *              description: An array of users
- *              schema:
- *              type: application/json
+ *      get:
+ *          description: Get all users
+ *          produces:
+ *          - application/json
+ *          responses:
+ *              200:
+ *                  description: An array of users
+ *                  schema: [{ name:string, lastname:string, email:string, addres:string, password:string, cvu:string, wallet:string }]
+ *                  type: application/json
  * */
 userRouter.get('/', (req, res) => {
     UserService.getAllUsers().then(users => {
@@ -28,6 +24,37 @@ userRouter.get('/', (req, res) => {
         .catch(err => {
             res.status(500).json({ error: err });
         });
+});
+
+/**
+ * @openapi
+ * /api/user/{id}:
+ *      get:
+ *          description: Get user by id
+ *          produces:
+ *          - application/json
+ *          parameters:
+ *          - in: path
+ *              name: id
+ *              type: string
+ *              description: The id of the user.
+ *              required: true
+ *          responses:
+ *              200:
+ *                  description: An array of users
+ *                  schema: [{ name:string, lastname:string, email:string, addres:string, password:string, cvu:string, wallet:string }]
+ *                  type: application/json
+ * 
+ */
+
+userRouter.get('/:id', (req, res) => {
+    UserService.getUserById(req.params.id)
+    .then(user => {
+        res.json(user);
+    })
+    .catch(err => {
+        res.status(500).json({ error: err });
+    });
 });
 
 export default userRouter;
