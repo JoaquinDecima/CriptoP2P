@@ -23,7 +23,7 @@ const swaggerDefinition = swaggerJSDoc(swaggerConf);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 // Routes
-app.use('/user', userRouter);
+app.use('/api/user', userRouter);
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);

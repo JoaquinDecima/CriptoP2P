@@ -1,5 +1,5 @@
 export const swaggerConf = {
-    SwaggerDefinition: {
+    swaggerDefinition: {
         info: {
             title: 'API Documentation DesApp',
             version: '1.0.0',
@@ -12,5 +12,7 @@ export const swaggerConf = {
         }
     },
     basePath: '/docs',
-    apis: [],
+    apis: [
+        '../router/*.js',
+    ],
 };
