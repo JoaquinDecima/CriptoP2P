@@ -18,6 +18,7 @@ mongoose.connect(process.env.MONGODB_HOST);
 // Express configuration
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.disable("x-powered-by");
 
 // Swagger configuration
 const swaggerDefinition = swaggerJSDoc(swaggerConf);
