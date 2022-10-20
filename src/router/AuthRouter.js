@@ -7,9 +7,17 @@ const authRouter = express.Router();
 
 /**
  * @openapi
+ * tags:
+ *   name: Auth
+ *   description: Loguin Service
+ * */
+
+/**
+ * @openapi
  * /api/auth:
  *     post:
  *          description: Login user
+ *          tags: [Auth]
  *          produces:
  *              - application/json
  *          parameters:
@@ -46,7 +54,7 @@ authRouter.post('/', (req, res) => {
     UserService.authUser(email, password)
         .then(user => {
             const token = TokenManager.generateToken(user);
-            res.json({token});
+            res.json({ token });
         })
         .catch(err => {
             res.status(500).json({ error: err.message });
