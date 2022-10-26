@@ -16,6 +16,26 @@ class CriptoManager {
             CriptoActiveService.createCriptoActive(cryptoModel);
         });
     }
+
+    updateCryptoData() {
+        CriptoActiveService.getAllCriptoActives()
+            .then(criptoActive => {
+                criptoActive.forEach(async(crypto) => {
+                    const price = await getPrices(crypto.symbol);
+                    const oldprice = {
+                        price: crypto.price,
+                        date: crypto.updatetime,
+                    };
+                    crypto.hystrorical.push(oldprice)
+                    crypto.price = price.price;
+                    crypto.updatetime = Date.now();
+                    crypto.save();
+                });
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
 }
 
 export default new CriptoManager();
