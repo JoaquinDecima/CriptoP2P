@@ -19,7 +19,13 @@ class CriptoActiveService {
     }
 
     updateCriptoActive(id, criptoActive) {
-        return CriptoActive.findByIdAndUpdate(id, criptoActive);
+        const newCriptoActive = {
+            symbol: criptoActive.symbol,
+            price: criptoActive.price,
+            hystrorical: criptoActive.hystrorical,
+            updatetime: criptoActive.updatetime,
+        }
+        return CriptoActive.findByIdAndUpdate(id, newCriptoActive);
     }
 
     deleteCriptoActive(id) {
