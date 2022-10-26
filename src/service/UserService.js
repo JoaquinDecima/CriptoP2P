@@ -46,6 +46,10 @@ class UserService {
     }
     throw new Error("Invalid credentials");
   }
+
+  deleteUser(id) {
+    return User.findByIdAndDelete(id);
+  }
 }
 
 export default new UserService();
