@@ -1,4 +1,5 @@
 import express from 'express';
+import isAuthenticated from '../middleware/isAuth.js';
 
 import UserService from '../service/UserService.js';
 
@@ -48,9 +49,10 @@ const userRouter = express.Router();
  *                     $ref: '#/definitions/User'
  * */
 userRouter.get('/', (req, res) => {
-    UserService.getAllUsers().then(users => {
-        res.json(users);
-    })
+    UserService.getAllUsers()
+        .then(users => {
+            res.json(users);
+        })
         .catch(err => {
             res.status(500).json({ error: err.message });
         });
@@ -79,12 +81,12 @@ userRouter.get('/', (req, res) => {
 
 userRouter.get('/:id', (req, res) => {
     UserService.getUserById(req.params.id)
-    .then(user => {
-        res.json(user);
-    })
-    .catch(err => {
-        res.status(500).json({ error: err.message });
-    });
+        .then(user => {
+            res.json(user);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
 });
 
 
@@ -119,6 +121,50 @@ userRouter.get('/:id', (req, res) => {
 
 userRouter.post('/', (req, res) => {
     UserService.createUser(req.body)
+        .then(user => {
+            res.json(user);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+});
+
+/**
+ * @openapi
+ * /api/user/:
+ *      delete:
+ *          description: Delete an user logged
+ *          tags: [User]
+ *          produces:
+ *              - application/json
+ *          parameters:
+ *              - in: header
+ *                name: token
+ *                description: "The token of the user"
+ *                required: true
+ *          responses:
+ *              200:
+ *                  description: The user was successfully deleted
+ *                  schema:
+ *                      $ref: '#/definitions/User'
+ *              500:
+ *                  description: Some server error
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          error:
+ *                              type: string
+ *              401:
+ *                  description: Unauthorized
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          error:
+ *                              type: string
+ * 
+ */
+userRouter.delete('/',isAuthenticated, (req, res) => {
+    UserService.deleteUser(req.headers.user._id)
         .then(user => {
             res.json(user);
         })
