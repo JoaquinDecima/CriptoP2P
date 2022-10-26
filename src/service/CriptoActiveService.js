@@ -6,7 +6,7 @@ class CriptoActiveService {
     }
 
     getCriptoActiveBySymbol(symbol) {
-        return CriptoActive.findOne(symbol);
+        return CriptoActive.findOne({symbol: symbol});
     }
 
     async createCriptoActive(criptoActive) {
