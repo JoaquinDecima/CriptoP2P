@@ -9,7 +9,7 @@ const authRouter = express.Router();
  * @openapi
  * tags:
  *   name: Auth
- *   description: Loguin Service
+ *   description: Login Service
  * */
 
 /**
