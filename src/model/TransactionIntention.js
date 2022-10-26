@@ -33,7 +33,7 @@ const TransactionIntentionSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['compra', 'venta'],
+        enum: ['COMPRA', 'VENTA'],
         required: true,
     },
 });
