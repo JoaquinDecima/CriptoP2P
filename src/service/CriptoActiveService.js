@@ -1,4 +1,4 @@
-import { CriptoActive } from "../model/CriptoActive";
+import { CriptoActive } from "../model/CriptoActive.js";
 
 class CriptoActiveService {
     getAllCriptoActives() {
@@ -9,8 +9,13 @@ class CriptoActiveService {
         return CriptoActive.findOne(symbol);
     }
 
-    createCriptoActive(criptoActive) {
-        return CriptoActive.create(criptoActive);
+    async createCriptoActive(criptoActive) {
+        const newCriptoActive = {
+            symbol: criptoActive.symbol,
+            price: criptoActive.price,
+            hystrorical: [],
+        }
+        return await CriptoActive.create(newCriptoActive);
     }
 
     updateCriptoActive(id, criptoActive) {
