@@ -1,7 +1,6 @@
 import express from "express";
 
 import CriptoActiveService from "../service/CriptoActiveService.js";
-import CriptoManager from "../tools/CriptoManager.js";
 
 const criptoActiveRouter = express.Router();
 
@@ -50,7 +49,6 @@ const criptoActiveRouter = express.Router();
  *                              type: string
  */
 criptoActiveRouter.get('/', (req, res) => {
-    CriptoManager.updateCryptoData();
     CriptoActiveService.getAllCriptoActives()
         .then(criptoActive => {
             res.json(criptoActive);
