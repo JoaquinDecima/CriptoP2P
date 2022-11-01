@@ -31,7 +31,7 @@ class UserService {
       address: validateAddress(user.address),
       password: await bcrypt.hash(validatePassword(user.password), this.salt),
       cvu: validateCvu(user.cvu),
-      wallet: validateWallet(user.wallet),  
+      wallet: validateWallet(user.wallet),
     }
     return await User.create(newUser);
   }

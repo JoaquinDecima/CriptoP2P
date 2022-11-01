@@ -7,7 +7,7 @@ class CriptoManager {
 
     ingestCryptoData() {
         const cryptoData = require('../data/criptoData.json');
-        cryptoData.forEach(async(crypto) => {
+        cryptoData.forEach(async (crypto) => {
             const price = await getPrices(crypto);
             const cryptoModel = {
                 symbol: price.symbol,
@@ -20,13 +20,14 @@ class CriptoManager {
     updateCryptoData() {
         CriptoActiveService.getAllCriptoActives()
             .then(criptoActive => {
-                criptoActive.forEach(async(crypto) => {
+                criptoActive.forEach(async (crypto) => {
                     const price = await getPrices(crypto.symbol);
                     const oldprice = {
                         price: crypto.price,
                         date: crypto.updatetime,
                     };
                     crypto.hystrorical.push(oldprice)
+                    crypto.hystrorical = crypto.hystrorical.filter((item) => ((new Date - item.date)/(1000*60*60*24)) < 1);
                     crypto.price = price.price;
                     crypto.updatetime = Date.now();
                     crypto.save();
