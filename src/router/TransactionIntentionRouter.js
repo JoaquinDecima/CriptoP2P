@@ -1,5 +1,6 @@
 import express from "express";
 
+import isAuthenticated from "../middleware/isAuth.js";
 import TransactionIntentionService from "../service/TransactionIntentionService.js";
 
 const TransactionIntentionRouter = express.Router();
@@ -28,7 +29,8 @@ const TransactionIntentionRouter = express.Router();
  *              date:
  *                  type: date
  *              operation:
- *                  type: ENUM
+ *                  type: enum
+ *                  enum: ['COMPRA', 'VENTA']
  */
 
 /**
@@ -53,6 +55,78 @@ const TransactionIntentionRouter = express.Router();
 
 TransactionIntentionRouter.get('/', (req, res) => {
     TransactionIntentionService.getAllTransactionIntentions()
+        .then(TransactionIntention => {
+            res.json(TransactionIntention);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+});
+
+/**
+ * @openapi
+ * /api/transactionintention:
+ *      post:
+ *          description: Add new transaction intention
+ *          tags: [TransactionIntention]
+ *          security:
+ *             - auth: [token]
+ *          produces:
+ *              - application/json
+ *          parameters:
+ *              - in: header
+ *                name: token
+ *                description: "The token of the user"
+ *                required: true
+ *              - in: body
+ *                name: nominalValue
+ *                description: "The nominal value of the transaction intention"
+ *                required: true
+ *                schema:
+ *                  type: number
+ *                example: 997.99
+ *              - in: body
+ *                name: amount
+ *                description: "The amount of the transaction intention in ARS"
+ *                required: true
+ *                schema:
+ *                  type: number
+ *                example: 1000
+ *              - in: body
+ *                name: operation
+ *                description: "The operation of the transaction intention"
+ *                required: true
+ *                schema:
+ *                  type: enum
+ *                  enum: ['COMPRA', 'VENTA']
+ *              - in: body
+ *                name: criptoActive
+ *                description: "The cripto active of the transaction intention"
+ *                required: true
+ *                schema:
+ *                  type: enum
+ *                  enum: ['ALICEUSDT', 'MATICUSDT', 'AXSUSDT', 'AAVEUSDT', 'ATOMUSDT', 'NEOUSDT', 'DOTUSDT', 'ETHUSDT', 'CAKEUSDT', 'BTCUSDT', 'BNBUSDT', 'ADAUSDT', 'TRXUSDT', 'AUDIOUSDT']
+ *          responses:
+ *              200:
+ *                  description: The transactionintention.
+ *                  schema:
+ *                      $ref: '#/definitions/TransactionIntention'
+ *              500:
+ *                  description: Internal error
+ *                  schema:
+ *                      type: object
+ *              401:
+ *                  description: Unauthorized
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          error:
+ *                              type: string
+ * 
+ */
+
+TransactionIntentionRouter.post('/', isAuthenticated, (req, res) => {
+    TransactionIntentionService.createTransactionIntention(req.body, req.headers.user)
         .then(TransactionIntention => {
             res.json(TransactionIntention);
         })
