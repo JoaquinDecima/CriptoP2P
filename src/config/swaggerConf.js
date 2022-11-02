@@ -12,7 +12,16 @@ export const swaggerConf = {
         }
     },
     basePath: '/docs',
-    host: 'https://desapp-backend.herokuapp.com',
+    servers: [
+        {
+            "url": "http://localhost:8080/",
+            "description": "Development server"
+        },
+        {
+            "url": "https://backend-desapp.herokuapp.com/",
+            "description": "Production server"
+        }
+    ],
     apis: [
         'src/router/*Router.js',
     ],
