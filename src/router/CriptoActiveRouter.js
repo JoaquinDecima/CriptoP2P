@@ -49,7 +49,7 @@ const criptoActiveRouter = express.Router();
  *                              type: string
  */
 criptoActiveRouter.get('/', (req, res) => {
-    CriptoActiveService.getAllCriptoActives().select('-__v -historical')
+    CriptoActiveService.getAllCriptoActives().select('-historical')
         .then(criptoActive => {
             res.json(criptoActive);
         })
@@ -80,7 +80,7 @@ criptoActiveRouter.get('/', (req, res) => {
  *                              type: string
  */
  criptoActiveRouter.get('/historical', (req, res) => {
-    CriptoActiveService.getAllCriptoActives().select('-__v')
+    CriptoActiveService.getAllCriptoActives()
         .then(criptoActive => {
             res.json(criptoActive);
         })
@@ -116,8 +116,7 @@ criptoActiveRouter.get('/', (req, res) => {
  *                              type: string
  */
  criptoActiveRouter.get('/historical/:symbol', (req, res) => {
-    const symbol = req.params.symbol;
-    CriptoActiveService.getCriptoActiveBySymbol(symbol).select('-__v')
+    CriptoActiveService.getCriptoActiveBySymbol(req.params.symbol)
         .then(criptoActive => {
             res.json(criptoActive);
         })
@@ -154,8 +153,7 @@ criptoActiveRouter.get('/', (req, res) => {
  *                              type: string
  */
 criptoActiveRouter.get('/:symbol', (req, res) => {
-    const symbol = req.params.symbol;
-    CriptoActiveService.getCriptoActiveBySymbol(symbol).select('-__v -historical')
+    CriptoActiveService.getCriptoActiveBySymbol(req.params.symbol).select('-historical')
         .then(criptoActive => {
             res.json(criptoActive);
         })

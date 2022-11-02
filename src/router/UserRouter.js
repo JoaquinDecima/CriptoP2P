@@ -49,7 +49,7 @@ const userRouter = express.Router();
  *                     $ref: '#/definitions/User'
  * */
 userRouter.get('/', (req, res) => {
-    UserService.getAllUsers().select('-password -__v')
+    UserService.getAllUsers()
         .then(users => {
             res.json(users);
         })
@@ -80,7 +80,7 @@ userRouter.get('/', (req, res) => {
  */
 
 userRouter.get('/:id', (req, res) => {
-    UserService.getUserById(req.params.id).select('-password -__v')
+    UserService.getUserById(req.params.id)
         .then(user => {
             res.json(user);
         })
@@ -120,7 +120,7 @@ userRouter.get('/:id', (req, res) => {
  * */
 
 userRouter.post('/', (req, res) => {
-    UserService.createUser(req.body).select('-password -__v')
+    UserService.createUser(req.body)
         .then(user => {
             res.json(user);
         })

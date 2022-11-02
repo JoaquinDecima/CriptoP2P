@@ -2,11 +2,11 @@ import { CriptoActive } from "../model/CriptoActive.js";
 
 class CriptoActiveService {
     getAllCriptoActives() {
-        return CriptoActive.find();
+        return CriptoActive.find().select('-__v');
     }
 
     getCriptoActiveBySymbol(symbol) {
-        return CriptoActive.findOne({symbol: symbol});
+        return CriptoActive.findOne({symbol: symbol}).select('-__v');
     }
 
     async createCriptoActive(criptoActive) {

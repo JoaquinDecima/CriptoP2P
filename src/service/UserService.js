@@ -16,11 +16,11 @@ class UserService {
   salt = bcrypt.genSaltSync(environment.HASH_SALT);
 
   getAllUsers() {
-    return User.find();
+    return User.find().select('-password -__v');
   }
 
   getUserById(id) {
-    return User.findById(id);
+    return User.findById(id).select('-password -__v');
   }
 
   async createUser(user) {
@@ -48,7 +48,7 @@ class UserService {
   }
 
   deleteUser(id) {
-    return User.findByIdAndDelete(id);
+    return User.findByIdAndDelete(id).select('-password -__v');
   }
 }
 

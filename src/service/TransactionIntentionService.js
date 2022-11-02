@@ -8,14 +8,16 @@ class TransactionIntentionService {
         return (TransactionIntention
             .find()
             .populate('user', '-password -__v')
-            .populate('criptoActive', '-__v -historical'));
+            .populate('criptoActive', '-__v -historical')
+            .select('-__v'));
     }
 
     getTransactionIntentionById(id) {
         return (TransactionIntention
             .findById(id)
             .populate('user', '-password -__v')
-            .populate('criptoActive', '-__v -historical'))
+            .populate('criptoActive', '-__v -historical')
+            .select('-__v'))
     }
 
     async createTransactionIntention(transactionIntention, user) {
