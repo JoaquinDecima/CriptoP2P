@@ -26,8 +26,8 @@ class CriptoManager {
                         price: crypto.price,
                         date: crypto.updatetime,
                     };
-                    crypto.hystrorical.push(oldprice)
-                    crypto.hystrorical = crypto.hystrorical.filter((item) => ((new Date - item.date)/(1000*60*60*24)) < 1);
+                    crypto.historical.push(oldprice)
+                    crypto.historical = crypto.historical.filter((item) => ((new Date - item.date)/(1000*60*60*24)) < 1);
                     crypto.price = price.price;
                     crypto.updatetime = Date.now();
                     crypto.save();

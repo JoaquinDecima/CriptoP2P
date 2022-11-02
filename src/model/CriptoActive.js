@@ -12,7 +12,7 @@ const CriptoActiveSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    hystrorical: {
+    historical: {
         type: Array,
         required: true,
     },
