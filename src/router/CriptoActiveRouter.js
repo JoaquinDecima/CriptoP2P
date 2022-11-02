@@ -31,7 +31,7 @@ const criptoActiveRouter = express.Router();
  * @openapi
  * /api/criptoactive:
  *      get:
- *          description: Get criptoactive data
+ *          description: Get all criptoactive data
  *          tags: [CriptoActive]
  *          produces:
  *              - application/json
@@ -49,7 +49,7 @@ const criptoActiveRouter = express.Router();
  *                              type: string
  */
 criptoActiveRouter.get('/', (req, res) => {
-    CriptoActiveService.getAllCriptoActives()
+    CriptoActiveService.getAllCriptoActives().select('-__v -historical')
         .then(criptoActive => {
             res.json(criptoActive);
         })
@@ -60,9 +60,78 @@ criptoActiveRouter.get('/', (req, res) => {
 
 /** 
  * @openapi
+ * /api/criptoactive/historical/:
+ *      get:
+ *          description: Get all criptoactive data historical
+ *          tags: [CriptoActive]
+ *          produces:
+ *              - application/json
+ *          responses:
+ *              200:
+ *                  description: The criptoactive.
+ *                  schema:
+ *                      $ref: '#/definitions/CriptoActive'
+ *              500:
+ *                  description: Internal error
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          error:
+ *                              type: string
+ */
+ criptoActiveRouter.get('/historical', (req, res) => {
+    CriptoActiveService.getAllCriptoActives().select('-__v')
+        .then(criptoActive => {
+            res.json(criptoActive);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+});
+
+/** 
+ * @openapi
+ * /api/criptoactive/historical/{symbol}:
+ *      get:
+ *          description: Get criptoactive data historical by symbol
+ *          tags: [CriptoActive]
+ *          produces:
+ *              - application/json
+ *          parameters:
+ *              - in: path
+ *                name: symbol
+ *                description: "The symbol of the criptoactive"
+ *                required: true
+ *          responses:
+ *              200:
+ *                  description: The criptoactive.
+ *                  schema:
+ *                      $ref: '#/definitions/CriptoActive'
+ *              500:
+ *                  description: Internal error
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          error:
+ *                              type: string
+ */
+ criptoActiveRouter.get('/historical/:symbol', (req, res) => {
+    const symbol = req.params.symbol;
+    CriptoActiveService.getCriptoActiveBySymbol(symbol).select('-__v')
+        .then(criptoActive => {
+            res.json(criptoActive);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+});
+
+
+/** 
+ * @openapi
  * /api/criptoactive/{symbol}:
  *      get:
- *          description: Get criptoactive data
+ *          description: Get criptoactive data by symbol
  *          tags: [CriptoActive]
  *          produces:
  *              - application/json
@@ -86,7 +155,7 @@ criptoActiveRouter.get('/', (req, res) => {
  */
 criptoActiveRouter.get('/:symbol', (req, res) => {
     const symbol = req.params.symbol;
-    CriptoActiveService.getCriptoActiveBySymbol(symbol)
+    CriptoActiveService.getCriptoActiveBySymbol(symbol).select('-__v -historical')
         .then(criptoActive => {
             res.json(criptoActive);
         })
