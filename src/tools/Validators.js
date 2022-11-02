@@ -47,3 +47,9 @@ export function validateAddress(address){
     return address;
 }
 
+export function validateOperation(operation){
+    if (! /^(COMPRA|VENTA)$/.test(operation)){
+        throw new Error("Invalid format Operation");
+    }
+    return operation;
+}
