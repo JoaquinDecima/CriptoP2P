@@ -5,7 +5,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
 import { environment } from './config/enviroment.js';
-import { swaggerConf } from './config/swaggerConf.js';
+import { swaggerConf, swaggerConfStyle } from './config/swaggerConf.js';
 import authRouter from './router/AuthRouter.js';
 import criptoActiveRouter from './router/CriptoActiveRouter.js';
 import transactionIntentionRouter from './router/TransactionIntentionRouter.js';
@@ -26,7 +26,7 @@ app.disable("x-powered-by");
 
 // Swagger configuration
 const swaggerDefinition = swaggerJSDoc(swaggerConf);
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition, swaggerConfStyle));
 
 // Routes
 app.use('/api/auth', authRouter);
