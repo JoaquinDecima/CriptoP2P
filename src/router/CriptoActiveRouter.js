@@ -1,8 +1,10 @@
+import apicache from 'apicache';
 import express from "express";
 
 import CriptoActiveService from "../service/CriptoActiveService.js";
 
 const criptoActiveRouter = express.Router();
+const cache = apicache.middleware;
 
 /**
  * @openapi
@@ -48,7 +50,7 @@ const criptoActiveRouter = express.Router();
  *                          error:
  *                              type: string
  */
-criptoActiveRouter.get('/', (req, res) => {
+criptoActiveRouter.get('/', cache('10 minutes'),(req, res) => {
     CriptoActiveService.getAllCriptoActives().select('-historical')
         .then(criptoActive => {
             res.json(criptoActive);
@@ -79,7 +81,7 @@ criptoActiveRouter.get('/', (req, res) => {
  *                          error:
  *                              type: string
  */
- criptoActiveRouter.get('/historical', (req, res) => {
+ criptoActiveRouter.get('/historical', cache('10 minutes'),(req, res) => {
     CriptoActiveService.getAllCriptoActives()
         .then(criptoActive => {
             res.json(criptoActive);
@@ -115,7 +117,7 @@ criptoActiveRouter.get('/', (req, res) => {
  *                          error:
  *                              type: string
  */
- criptoActiveRouter.get('/historical/:symbol', (req, res) => {
+ criptoActiveRouter.get('/historical/:symbol', cache('10 minutes'),(req, res) => {
     CriptoActiveService.getCriptoActiveBySymbol(req.params.symbol)
         .then(criptoActive => {
             res.json(criptoActive);
@@ -152,7 +154,7 @@ criptoActiveRouter.get('/', (req, res) => {
  *                          error:
  *                              type: string
  */
-criptoActiveRouter.get('/:symbol', (req, res) => {
+criptoActiveRouter.get('/:symbol', cache('10 minutes'),(req, res) => {
     CriptoActiveService.getCriptoActiveBySymbol(req.params.symbol).select('-historical')
         .then(criptoActive => {
             res.json(criptoActive);
