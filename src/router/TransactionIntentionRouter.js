@@ -170,4 +170,52 @@ TransactionIntentionRouter.get('/:id', (req, res) => {
         });
 });
 
+/**
+ * @openapi
+ * /api/transactionintention/{id}:
+ *      delete:
+ *          description: Delete transaction intention by id
+ *          tags: [TransactionIntention]
+ *          security:
+ *              - auth: [token]
+ *          produces:
+ *              - application/json
+ *          parameters:
+ *              - in: header
+ *                name: token
+ *                description: "The token of the user"
+ *                required: true
+ *              - in: path
+ *                name: id
+ *                description: "The id of the transaction intention"
+ *                required: true
+ *                schema:
+ *                      type: string
+ *          responses:
+ *              200:
+ *                  description: The transactionintention.
+ *                  schema:
+ *                      $ref: '#/definitions/TransactionIntention'
+ *              500:
+ *                  description: Internal error
+ *                  schema:
+ *                      type: object
+ *              401:
+ *                  description: Unauthorized
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          error:
+ *                              type: string
+ */
+TransactionIntentionRouter.delete('/:id', isAuthenticated, (req, res) => {
+    TransactionIntentionService.deleteTransactionIntentionById(req.params.id, req.headers.user)
+        .then(TransactionIntention => {
+            res.json(TransactionIntention);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+});
+
 export default TransactionIntentionRouter;

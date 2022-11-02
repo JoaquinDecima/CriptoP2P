@@ -30,6 +30,14 @@ class TransactionIntentionService {
         return TransactionIntention.create(newTransactionIntention);
     }
 
+    async deleteTransactionIntentionById(id, user) {
+        const transactionIntention = await this.getTransactionIntentionById(id);
+        if (transactionIntention.user._id.toString() === user._id.toString()) {
+            return TransactionIntention.findByIdAndDelete(id);
+        }
+        throw new Error("Cannot delete transactionIntention from another user");
+    }
+
 }
 
 export default new TransactionIntentionService();
