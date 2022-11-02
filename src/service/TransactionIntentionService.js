@@ -5,11 +5,17 @@ import { validateOperation } from "../tools/Validators.js";
 class TransactionIntentionService {
 
     getAllTransactionIntentions() {
-        return TransactionIntention.find();
+        return (TransactionIntention
+            .find()
+            .populate('user', '-password -__v')
+            .populate('criptoActive', '-__v -historical'));
     }
 
     getTransactionIntentionById(id) {
-        return TransactionIntention.findById(id);
+        return (TransactionIntention
+            .findById(id)
+            .populate('user', '-password -__v')
+            .populate('criptoActive', '-__v -historical'))
     }
 
     async createTransactionIntention(transactionIntention, user) {
