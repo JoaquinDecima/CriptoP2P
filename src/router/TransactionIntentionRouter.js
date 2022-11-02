@@ -54,7 +54,7 @@ const TransactionIntentionRouter = express.Router();
  */
 
 TransactionIntentionRouter.get('/', (req, res) => {
-    TransactionIntentionService.getAllTransactionIntentions()
+    TransactionIntentionService.getAllTransactionIntentions().select('-__v')
         .then(TransactionIntention => {
             res.json(TransactionIntention);
         })
