@@ -135,6 +135,8 @@ userRouter.post('/', (req, res) => {
  *      delete:
  *          description: Delete an user logged
  *          tags: [User]
+ *          security:
+ *              - auth: [token]
  *          produces:
  *              - application/json
  *          parameters:
