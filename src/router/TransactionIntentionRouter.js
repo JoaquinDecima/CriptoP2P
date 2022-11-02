@@ -135,4 +135,39 @@ TransactionIntentionRouter.post('/', isAuthenticated, (req, res) => {
         });
 });
 
+/**
+ * @openapi
+ * /api/transactionintention/{id}:
+ *      get:
+ *          description: Get transaction Intention by id
+ *          tags: [TransactionIntention]
+ *          produces:
+ *              - application/json
+ *          parameters:
+ *              - in: path
+ *                name: id
+ *                description: "The id of the transaction intention"
+ *                required: true
+ *                schema:
+ *                  type: string
+ *          responses:
+ *              200:
+ *                  description: The transactionintention.
+ *                  schema:
+ *                      $ref: '#/definitions/TransactionIntention'
+ *              500:
+ *                  description: Internal error
+ *                  schema:
+ *                      type: object
+ */
+TransactionIntentionRouter.get('/:id', (req, res) => {
+    TransactionIntentionService.getTransactionIntentionById(req.params.id)
+        .then(TransactionIntention => {
+            res.json(TransactionIntention);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+});
+
 export default TransactionIntentionRouter;
