@@ -19,7 +19,7 @@ Este proyecto es una API REST que permite la gestión de usuarios, y transaccion
     * ~~Jest~~ (En desarrollo)
     * MongoDB _mongoose_
     * Cache (Utiliza ram para evitar servidor redis) _apicache_
-    * Axios
+    * Axios _axios_
     * Dotenv _dotenv_
     * Schedule _node-schedule_ (para Binance)
 * Servicios: 
