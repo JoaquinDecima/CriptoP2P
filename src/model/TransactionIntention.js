@@ -11,15 +11,7 @@ const TransactionIntentionSchema = new mongoose.Schema({
         ref: 'CriptoActive',
         required: true,
     },
-    criptoActiveValue: {
-        type: Number,
-        required: true,
-    },
-    criptoActiveAmount: {
-        type: Number,
-        required: true,
-    },
-    ARSValue: {
+    nominalValue: {
         type: Number,
         required: true,
     },
@@ -31,7 +23,7 @@ const TransactionIntentionSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    type: {
+    operation: {
         type: String,
         enum: ['COMPRA', 'VENTA'],
         required: true,
