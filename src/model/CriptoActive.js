@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const CriptoActiveSchema = new mongoose.Schema({
+export const CriptoActiveSchema = new mongoose.Schema({
     symbol: {
         type: String,
         required: true,
@@ -21,5 +21,3 @@ const CriptoActiveSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
-
-export const CriptoActive = mongoose.model('CriptoActive', CriptoActiveSchema);
