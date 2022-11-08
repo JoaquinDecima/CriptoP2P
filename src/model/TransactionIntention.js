@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const TransactionIntentionSchema = new mongoose.Schema({
+export const TransactionIntentionSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -29,5 +29,3 @@ const TransactionIntentionSchema = new mongoose.Schema({
         required: true,
     },
 });
-
-export const TransactionIntention = mongoose.model('TransactionIntention', TransactionIntentionSchema);
