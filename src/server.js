@@ -1,5 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import { scheduleJob } from 'node-schedule';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
@@ -15,9 +14,6 @@ import CriptoManager from './tools/CriptoManager.js';
 // Create Express server
 const app = express();
 const port = environment.PORT;
-
-// MongoDB connection
-mongoose.connect(process.env.MONGODB_HOST);
 
 // Express configuration
 app.use(express.urlencoded({ extended: true }));

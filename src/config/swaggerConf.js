@@ -4,7 +4,7 @@ export const swaggerConf = {
         info: {
             title: 'DesApp Backend',
             version: '0.1.0',
-            description: 'API Documentation Desarrollo de Aplicaciones - DesApp Backend - UNQ 2022 s2 - Grupo H',
+            description: 'API Documentation Desarrollo de Aplicaciones - DesApp Backend - UNQ 2022 s2 - Grupo E',
             license: {
                 name: 'gpl-3.0',
                 url: 'https://www.gnu.org/licenses/gpl-3.0.html',

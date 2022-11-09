@@ -1,23 +1,16 @@
-import { TransactionIntention } from "../model/TransactionIntention.js";
+import { TransactionIntentionRepository } from "../repositories/TransactionIntentionRepository.js";
 import CriptoActiveService from "./CriptoActiveService.js";
 import { validateOperation } from "../tools/Validators.js";
 
 class TransactionIntentionService {
+    tiRepository = new TransactionIntentionRepository();
 
     getAllTransactionIntentions() {
-        return (TransactionIntention
-            .find()
-            .populate('user', '-password -__v')
-            .populate('criptoActive', '-__v -historical')
-            .select('-__v'));
+        return (this.tiRepository.getAllTransactionIntentions());
     }
 
     getTransactionIntentionById(id) {
-        return (TransactionIntention
-            .findById(id)
-            .populate('user', '-password -__v')
-            .populate('criptoActive', '-__v -historical')
-            .select('-__v'))
+        return (this.tiRepository.getTransactionIntentionById(id));
     }
 
     async createTransactionIntention(transactionIntention, user) {
@@ -29,13 +22,13 @@ class TransactionIntentionService {
             amount: transactionIntention.amount,
             operation: validateOperation(transactionIntention.operation),
         };
-        return TransactionIntention.create(newTransactionIntention);
+        return this.tiRepository.createTransactionIntention(newTransactionIntention);
     }
 
     async deleteTransactionIntentionById(id, user) {
         const transactionIntention = await this.getTransactionIntentionById(id);
         if (transactionIntention.user._id.toString() === user._id.toString()) {
-            return TransactionIntention.findByIdAndDelete(id);
+            return this.tiRepository.deleteTransactionIntention(id);
         }
         throw new Error("Cannot delete transactionIntention from another user");
     }

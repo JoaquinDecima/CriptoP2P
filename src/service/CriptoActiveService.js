@@ -1,12 +1,22 @@
-import { CriptoActive } from "../model/CriptoActive.js";
+import { CriptoActiveServiceRepository } from "../repositories/CriptoActiveServiceRepository.js";
 
 class CriptoActiveService {
+    caRepository = new CriptoActiveServiceRepository();
+
     getAllCriptoActives() {
-        return CriptoActive.find().select('-__v');
+        return this.caRepository.getAllCriptoActives();
+    }
+
+    getAllCriptoActivesWithHistorical() {
+        return this.caRepository.getAllCriptoActivesWithHistorical();
     }
 
     getCriptoActiveBySymbol(symbol) {
-        return CriptoActive.findOne({symbol: symbol}).select('-__v');
+        return this.caRepository.getCriptoActiveBySymbol(symbol);
+    }
+
+    getCriptoActiveBySymbolWithHistorical(symbol) {
+        return this.caRepository.getCriptoActiveBySymbolWithHistorical(symbol);
     }
 
     async createCriptoActive(criptoActive) {
@@ -15,7 +25,7 @@ class CriptoActiveService {
             price: criptoActive.price,
             hystrorical: [],
         }
-        return await CriptoActive.create(newCriptoActive);
+        return await this.caRepository.createCriptoActive(newCriptoActive);
     }
 
     updateCriptoActive(id, criptoActive) {
@@ -25,11 +35,11 @@ class CriptoActiveService {
             hystrorical: criptoActive.hystrorical,
             updatetime: criptoActive.updatetime,
         }
-        return CriptoActive.findByIdAndUpdate(id, newCriptoActive);
+        return this.caRepository.CriptoActive(id, newCriptoActive);
     }
 
     deleteCriptoActive(id) {
-        return CriptoActive.findByIdAndDelete(id);
+        return this.caRepository.deleteCriptoActive(id);
     }
 }
 

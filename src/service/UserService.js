@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 
 import { environment } from '../config/enviroment.js';
-import { User } from "../model/User.js";
+import { UserRepository } from '../repositories/UserRepository.js';
 import { 
   validateAddress,
   validateCvu,
@@ -14,13 +14,14 @@ import {
 
 class UserService {
   salt = bcrypt.genSaltSync(environment.HASH_SALT);
+  userRepository = new UserRepository();
 
   getAllUsers() {
-    return User.find().select('-password -__v');
+    return this.userRepository.getAllUsers();
   }
 
   getUserById(id) {
-    return User.findById(id).select('-password -__v');
+    return this.userRepository.getUserById(id);
   }
 
   async createUser(user) {
@@ -33,11 +34,11 @@ class UserService {
       cvu: validateCvu(user.cvu),
       wallet: validateWallet(user.wallet),
     }
-    return await User.create(newUser);
+    return await this.userRepository.createUser(newUser);
   }
 
   async authUser(email, password) {
-    const user = await User.findOne({ email: validateEmail(email) });
+    const user = await this.userRepository.getUserByEmail(validateEmail(email));
     if (user) {
       const isValid = await bcrypt.compare(password, user.password);
       if (isValid) {
@@ -48,7 +49,7 @@ class UserService {
   }
 
   deleteUser(id) {
-    return User.findByIdAndDelete(id).select('-password -__v');
+    return this.deleteUser(id);
   }
 }
 
