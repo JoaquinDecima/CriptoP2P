@@ -35,7 +35,7 @@ export function validateName(name){
 
 export function validateLastName(lastname){
     if (! /^[a-zA-Z]{3,30}$/.test(lastname)){
-        throw new Error("Invalid format Lastname");
+        throw new Error("Invalid format LastName");
     }
     return lastname;
 }
