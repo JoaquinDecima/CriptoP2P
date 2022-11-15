@@ -16,7 +16,7 @@ Este proyecto es una API REST que permite la gestión de usuarios, y transaccion
     * JWT _jesonwebtoken_
     * Bcrypt _bcrypt_
     * Swagger _swagger-jsdoc_ _swagger-ui-express_
-    * ~~Jest~~ (En desarrollo)
+    * Mocha _mocha_ _chai_
     * MongoDB _mongoose_
     * Cache (Utiliza ram para evitar servidor redis) _apicache_
     * Axios _axios_
@@ -67,9 +67,9 @@ npm run dev
 
 La documentación de la API se encuentra en la ruta `/docs`
 
-## ~~Tests~~
+## Tests
 
-~~Para correr los tests~~
+Para correr los tests
 
 ```bash
 npm run test
