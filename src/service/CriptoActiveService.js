@@ -1,7 +1,7 @@
-import { CriptoActiveServiceRepository } from "../repositories/CriptoActiveServiceRepository.js";
+import { CriptoActiveRepository } from "../repositories/CriptoActiveRepository.js";
 
 class CriptoActiveService {
-    caRepository = new CriptoActiveServiceRepository();
+    caRepository = new CriptoActiveRepository();
 
     getAllCriptoActives() {
         return this.caRepository.getAllCriptoActives();

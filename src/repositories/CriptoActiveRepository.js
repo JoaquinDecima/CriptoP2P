@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { CriptoActiveSchema } from '../model/CriptoActive.js';
 import '../config/mongoConf.js';
 
-export class CriptoActiveServiceRepository {
+export class CriptoActiveRepository {
     constructor() {
         this.CriptoActive = mongoose.model('CriptoActive', CriptoActiveSchema)
     }
