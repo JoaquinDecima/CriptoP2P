@@ -21,7 +21,7 @@ class CriptoManager {
 
     async updateCryptoData() {
         const USDPrice = await getValue();
-        CriptoActiveService.getAllCriptoActives()
+        CriptoActiveService.getAllCriptoActivesWithHistorical()
             .then(criptoActive => {
                 criptoActive.forEach(async (crypto) => {
                     const price = await getPrices(crypto.symbol);
