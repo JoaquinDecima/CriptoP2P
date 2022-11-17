@@ -1,4 +1,5 @@
 import express from 'express';
+import morgan from 'morgan';
 import { scheduleJob } from 'node-schedule';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
@@ -19,6 +20,7 @@ const port = environment.PORT;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.disable("x-powered-by");
+app.use(morgan('short'));
 
 // Swagger configuration
 const swaggerDefinition = swaggerJSDoc(swaggerConf);
