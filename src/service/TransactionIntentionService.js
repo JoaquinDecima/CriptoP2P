@@ -15,6 +15,10 @@ class TransactionIntentionService {
 
     async createTransactionIntention(transactionIntention, user) {
         const criptoActive = await CriptoActiveService.getCriptoActiveBySymbol(transactionIntention.criptoActive);
+        if (this.calculatePorcentage(criptoActive.price, transactionIntention.nominalValue) > 5) {
+            throw new Error("El valor nominal no puede ser mayor al 5% del precio actual");
+        }
+
         const newTransactionIntention = {
             user,
             criptoActive,
@@ -31,6 +35,14 @@ class TransactionIntentionService {
             return this.tiRepository.deleteTransactionIntention(id);
         }
         throw new Error("Cannot delete transactionIntention from another user");
+    }
+
+    calculatePorcentage(criptoPrice, intentionPrice) {
+        let diferencia = criptoPrice - intentionPrice;
+        if (diferencia < 0) {
+            diferencia = diferencia * -1;
+        }
+        return ((diferencia) / intentionPrice) * 100;
     }
 
 }
