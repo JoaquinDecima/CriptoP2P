@@ -38,6 +38,6 @@ scheduleJob('*/10 * * * *', () => {
     CriptoManager.updateCryptoData();
 });
 
-app.listen(port, () => {
+export const server = app.listen(port, () => {
     console.info(`Server started on port ${port}`);
 });
