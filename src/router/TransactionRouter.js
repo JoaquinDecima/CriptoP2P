@@ -1,6 +1,7 @@
 import express from 'express';
 
 import isAuthenticated from '../middleware/isAuth.js';
+import TransactionIntentionService from '../service/TransactionIntentionService.js';
 import TransactionService from '../service/TransactionService.js';
 
 const transactionRouter = express.Router();
@@ -66,7 +67,8 @@ transactionRouter.get('/', (req, res) => {
 
 transactionRouter.post('/concret/:idIntention', isAuthenticated, (req, res) => {
     TransactionService.concretTransaction(req.params.idIntention, req.headers.user)
-        .then(transaction => {
+        .then(async (transaction) => {
+            await TransactionIntentionService.deleteTransactionIntentionById(req.params.idIntention);
             res.json(transaction);
         })
         .catch(err => {
