@@ -131,7 +131,7 @@ userRouter.post('/', (req, res) => {
 
 /**
  * @openapi
- * /api/user/:
+ * /api/user:
  *      delete:
  *          description: Delete an user logged
  *          tags: [User]
