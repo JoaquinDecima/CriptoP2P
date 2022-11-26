@@ -11,6 +11,20 @@ const transactionRouter = express.Router();
  *   description: Tansactions Service and details
  * */
 
+/** 
+ * @openapi
+ * /api/transaction:
+ *  get:
+ *      summary: Get all transactions
+ *      tags: [Transactions]
+ *      responses:
+ *          200:
+ *              description: Success
+ *          500:
+ *              description: Internal Server Error
+ * 
+ */
+
 transactionRouter.get('/', (req, res) => {
     TransactionService.getAllTransactions()
         .then(transactions => {
