@@ -1,5 +1,6 @@
 import express from 'express';
 
+import isAuthenticated from '../middleware/isAuth.js';
 import TransactionService from '../service/TransactionService.js';
 
 const transactionRouter = express.Router();
@@ -29,6 +30,44 @@ transactionRouter.get('/', (req, res) => {
     TransactionService.getAllTransactions()
         .then(transactions => {
             res.json(transactions);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+});
+
+/** 
+ * @openapi
+ * /api/transaction/{idIntention}:
+ *  post:
+ *      summary: Concret a transaction
+ *      tags: [Transactions]
+ *      security:
+ *          - auth: [token]
+ *      parameters:
+ *          - in: header
+ *            name: token
+ *            description: "The token of the user"
+ *            required: true
+ *          - in: path
+ *            name: idIntention
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The id of the transaction intention
+ *      responses:
+ *          200:
+ *              description: Success
+ *          500:
+ *              description: Internal Server Error
+ *          401:
+ *              description: Unauthorized
+*/  
+
+transactionRouter.post('/concret/:idIntention', isAuthenticated, (req, res) => {
+    TransactionService.concretTransaction(req.params.idIntention, req.headers.user)
+        .then(transaction => {
+            res.json(transaction);
         })
         .catch(err => {
             res.status(500).json({ error: err.message });
