@@ -9,6 +9,7 @@ import { swaggerConf, swaggerConfStyle } from './config/swaggerConf.js';
 import authRouter from './router/AuthRouter.js';
 import criptoActiveRouter from './router/CriptoActiveRouter.js';
 import transactionIntentionRouter from './router/TransactionIntentionRouter.js';
+import transactionRouter from './router/TransactionRouter.js';
 import userRouter from './router/UserRouter.js';
 import CriptoManager from './tools/CriptoManager.js';
 
@@ -30,6 +31,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition, swaggerConf
 app.use('/api/auth', authRouter);
 app.use('/api/criptoactive', criptoActiveRouter);
 app.use('/api/transactionalintention', transactionIntentionRouter);
+app.use('/api/transaction', transactionRouter);
 app.use('/api/user', userRouter);
 
 //cron job
