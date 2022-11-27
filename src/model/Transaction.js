@@ -34,4 +34,9 @@ export const TransactionSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
+    createDate: {
+        type: Date,
+        require: false,
+        default: new Date(),
+    }
 });
