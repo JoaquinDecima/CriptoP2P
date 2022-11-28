@@ -7,7 +7,8 @@ import {
     validateName,
     validateLastName,
     validateAddress,
-    validateOperation
+    validateOperation,
+    validatePorcent
 } from '../../src/tools/Validators.js';
 import { assert, expect } from 'chai';
 
@@ -93,5 +94,13 @@ describe('Tools - Validators', () => {
         expect(() => validateOperation('KOMPRA')).to.Throw('Invalid format Operation');
         expect(() => validateOperation('Venta')).to.Throw('Invalid format Operation');
         expect(() => validateOperation('V3NTA')).to.Throw('Invalid format Operation');
+    });
+    it('Porcent - Less than 5%', () => {
+        expect(() => validatePorcent(100, 97)).to.be.not.throw();
+        expect(() => validatePorcent(97, 100)).to.be.not.throw();
+    });
+    it('Porcent - Greater than 5%', () => {
+        expect(() => validatePorcent(100, 90)).to.Throw('El valor nominal no puede ser mayor al 5% del precio actual');
+        expect(() => validatePorcent(97, 1080)).to.Throw('El valor nominal no puede ser mayor al 5% del precio actual');
     });
 });
