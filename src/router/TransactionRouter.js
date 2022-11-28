@@ -76,4 +76,42 @@ transactionRouter.post('/concret/:idIntention', isAuthenticated, (req, res) => {
         });
 });
 
+/** 
+ * @openapi
+ * /api/transaction/advance/{idTransaction}:
+ *  post:
+ *      summary: Advance the state of a transaction
+ *      tags: [Transactions]
+ *      security:
+ *          - auth: [token]
+ *      parameters:
+ *          - in: header
+ *            name: token
+ *            description: "The token of the user"
+ *            required: true
+ *          - in: path
+ *            name: idTransaction
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The id of the transaction
+ *      responses:
+ *          200:
+ *              description: Success
+ *          500:
+ *              description: Internal Server Error
+ *          401:
+ *              description: Unauthorized
+ */
+
+transactionRouter.post('/advance/:idTransaction', isAuthenticated, (req, res) => {
+    TransactionService.advanceState(req.headers.user, req.params.idTransaction)
+        .then(transaction => {
+            res.json(transaction);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+});
+
 export default transactionRouter;

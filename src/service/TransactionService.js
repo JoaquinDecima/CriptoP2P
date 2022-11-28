@@ -1,4 +1,5 @@
 import { TransactionRepository } from "../repositories/TransactionRepisitory.js";
+import ChangeState from "../tools/ChangeState.js";
 import TransactionIntentionService from "./TransactionIntentionService.js";
 
 class TransactionService {
@@ -41,8 +42,17 @@ class TransactionService {
             });
     }
 
-    deleteTransaction(id) {
-        return this.tRepository.deleteTransaction(id);
+    async advanceState(user, transactionID) {
+        const transaction = await this.getTransactionById(transactionID);
+        ChangeState[transaction.status](user, transaction);
+        this.tRepository.createTransaction(transaction);
+    }
+
+    async cancelTransaction(user, transactionID) {
+        const transaction = await this.getTransactionById(transactionID);
+        transaction.status = "CANCELADO";
+        transaction.reputation = -20;
+        this.tRepository.createTransaction(transaction);
     }
 }
 
