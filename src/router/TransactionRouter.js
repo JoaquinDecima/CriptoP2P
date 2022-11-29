@@ -114,4 +114,42 @@ transactionRouter.post('/advance/:idTransaction', isAuthenticated, (req, res) =>
         });
 });
 
+/**
+ * @openapi
+ * /api/transaction/cancel/{idTransaction}:
+ *  delete:
+ *      summary: Cancel a transaction
+ *      tags: [Transactions]
+ *      security:
+ *          - auth: [token]
+ *      parameters:
+ *          - in: header
+ *            name: token
+ *            description: "The token of the user"
+ *            required: true
+ *          - in: path
+ *            name: idTransaction
+ *            schema:
+ *              type: string
+ *            required: true
+ *            description: The id of the transaction
+ *      responses:
+ *          200:
+ *              description: Success
+ *          500:
+ *              description: Internal Server Error
+ *          401:
+ *              description: Unauthorized
+ */
+
+transactionRouter.delete('/cancel/:idTransaction', isAuthenticated, (req, res) => {
+    TransactionService.cancelTransaction(req.headers.user, req.params.idTransaction)
+        .then(transaction => {
+            res.json(transaction);
+        })
+        .catch(err => {
+            res.status(500).json({ error: err.message });
+        });
+});
+
 export default transactionRouter;
