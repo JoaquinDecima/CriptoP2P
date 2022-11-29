@@ -84,7 +84,7 @@ criptoActiveRouter.get('/', cache('10 minutes'),(req, res) => {
  *                              type: string
  */
  criptoActiveRouter.get('/historical', cache('10 minutes'),(req, res) => {
-    CriptoActiveService.getAllCriptoActives()
+    CriptoActiveService.getAllCriptoActivesWithHistorical()
         .then(criptoActive => {
             res.json(criptoActive);
         })
