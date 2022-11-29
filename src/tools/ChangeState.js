@@ -18,11 +18,11 @@ function getReputation(date) {
 
 export default {
     ESPERANDO: (user, transaction) => {
-        isUser(user._id, transaction.buyer._id);
+        isUser(user.email, transaction.buyer.email);
         transaction.status = 'PAGADO';
     },
     PAGADO: (user, transaction) => {
-        isUser(user._id, transaction.seller._id);
+        isUser(user.email, transaction.seller.email);
         transaction.status = 'CONFIRMADO';
         transaction.reputation = getReputation(transaction.createDate)
     },
