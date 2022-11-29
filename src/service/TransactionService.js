@@ -9,6 +9,11 @@ class TransactionService {
         return this.tRepository.getAllTransactions();
     }
 
+    async getAllTransactionsActives() {
+        const transactions = await this.getAllTransactions();
+        return transactions.filter(transaction => (transaction.status === "ESPERANDO" || transaction.status === "PAGADO"));
+    }
+
     getTransactionById(id) {
         return this.tRepository.getTransactionById(id);
     }

@@ -28,7 +28,7 @@ const transactionRouter = express.Router();
  */
 
 transactionRouter.get('/', (req, res) => {
-    TransactionService.getAllTransactions()
+    TransactionService.getAllTransactionsActives()
         .then(transactions => {
             res.json(transactions);
         })
