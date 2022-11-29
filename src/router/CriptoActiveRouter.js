@@ -1,11 +1,12 @@
 import apicache from 'apicache';
 import express from "express";
-import redis from 'redis';
+// import redis from 'redis';   // For Redis Cache
 
 import CriptoActiveService from "../service/CriptoActiveService.js";
 
 const criptoActiveRouter = express.Router();
-const cache = apicache.options({ redisClient: redis.createClient() }).middleware;
+//const cache = apicache.options({ redisClient: redis.createClient() }).middleware;     // For Redis Cache
+const cache = apicache.middleware;
 
 /**
  * @openapi
