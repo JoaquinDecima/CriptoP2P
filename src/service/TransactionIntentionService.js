@@ -27,6 +27,10 @@ class TransactionIntentionService {
         return this.tiRepository.createTransactionIntention(newTransactionIntention);
     }
 
+    async deleteTransactionIntentionByIdNotVerify(id) {
+        return this.tiRepository.deleteTransactionIntention(id);
+    }
+
     async deleteTransactionIntentionById(id, user) {
         const transactionIntention = await this.getTransactionIntentionById(id);
         if (transactionIntention.user._id.toString() === user._id.toString()) {

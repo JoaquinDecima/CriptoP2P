@@ -68,7 +68,7 @@ transactionRouter.get('/', (req, res) => {
 transactionRouter.post('/concret/:idIntention', isAuthenticated, (req, res) => {
     TransactionService.concretTransaction(req.params.idIntention, req.headers.user)
         .then(async (transaction) => {
-            await TransactionIntentionService.deleteTransactionIntentionById(req.params.idIntention);
+            await TransactionIntentionService.deleteTransactionIntentionByIdNotVerify(req.params.idIntention);
             res.json(transaction);
         })
         .catch(err => {
