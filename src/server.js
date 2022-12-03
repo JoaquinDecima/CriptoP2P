@@ -1,11 +1,11 @@
 import express from 'express';
-import morgan from 'morgan';
 import { scheduleJob } from 'node-schedule';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
 import { environment } from './config/enviroment.js';
 import { swaggerConf, swaggerConfStyle } from './config/swaggerConf.js';
+import audit from './middleware/audit.js';
 import authRouter from './router/AuthRouter.js';
 import criptoActiveRouter from './router/CriptoActiveRouter.js';
 import transactionIntentionRouter from './router/TransactionIntentionRouter.js';
@@ -21,7 +21,7 @@ const port = environment.PORT;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.disable("x-powered-by");
-app.use(morgan('short'));
+app.use(audit);
 
 // Swagger configuration
 const swaggerDefinition = swaggerJSDoc(swaggerConf);
