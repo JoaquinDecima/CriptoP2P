@@ -22,6 +22,7 @@ Este proyecto es una API REST que permite la gestión de usuarios, y transaccion
     * Axios _axios_
     * Dotenv _dotenv_
     * Schedule _node-schedule_ (para Binance)
+    * API Logger ~~_morgan_~~ _on-finished_ _pino_ (audit)
 * Servicios: 
     * Restful
     * Swagger
