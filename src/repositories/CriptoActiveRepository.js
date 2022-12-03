@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { CriptoActiveSchema } from '../model/CriptoActive.js';
+import { CriptoActiveSchema } from '../model/CriptoActiveModel.js';
 import '../config/mongoConf.js';
 
 export class CriptoActiveRepository {

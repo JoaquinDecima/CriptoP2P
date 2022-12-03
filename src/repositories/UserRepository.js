@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { UserSchema } from '../model/User.js';
+import { UserSchema } from '../model/UserModel.js';
 import '../config/mongoConf.js';
 
 

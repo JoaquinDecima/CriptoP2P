@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { TransactionSchema } from '../model/Transaction.js';
+import { TransactionSchema } from '../model/TransactionModel.js';
 import '../config/mongoConf.js';
 
 export class TransactionRepository {

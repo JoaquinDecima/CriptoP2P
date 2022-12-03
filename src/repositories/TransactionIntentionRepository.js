@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { TransactionIntentionSchema } from '../model/TransactionIntention.js';
+import { TransactionIntentionSchema } from '../model/TransactionIntentionModel.js';
 import '../config/mongoConf.js';
 
 export class TransactionIntentionRepository {

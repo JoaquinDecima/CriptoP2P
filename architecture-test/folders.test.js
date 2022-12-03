@@ -38,4 +38,16 @@ describe("Verify Name Files and Folders", () => {
   
       expect(project).toMatchArch(rule);
     });
+    it("/model/*Model", () => {
+      const project = Archijs.parseFromPath("src");
+      
+      const rule = Archijs
+        .defineThat()
+        .folder('model')
+        .withNameMatching('Model')
+        .should()
+        .matchChildrensName('Model')
+  
+      expect(project).toMatchArch(rule);
+    });
   });
