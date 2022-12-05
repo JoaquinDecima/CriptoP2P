@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const {checkImportsContains, checkImportsNotContains} = require('./vasak-archt-js/tools/checkImport.cjs');
+const {checkImportsContains, checkImportsNotContains} = require('./vasak-archt-js/checkImport.cjs');
 
 describe("Verify imports", () => {
     it("Verify imports in model", () => {
