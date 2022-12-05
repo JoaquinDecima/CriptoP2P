@@ -1,6 +1,6 @@
 const getAllImports = require('./filesMamnager.cjs');
 
-function checkImportsContains(dir, contains) {
+function checkFolderImportsContains(dir, contains) {
     let containsBool = true;
     let imports = getAllImports(dir);
     imports = imports.map(file => file.map(line => line.includes(contains)));
@@ -16,7 +16,7 @@ function checkImportsContains(dir, contains) {
     return containsBool;
 }
 
-function checkImportsNotContains(dir, contains) {
+function checkFolderImportsNotContains(dir, contains) {
     let containsBool = false;
     let imports = getAllImports(dir);
     imports = imports.map(file => file.map(line => line.includes(contains)));
@@ -32,6 +32,6 @@ function checkImportsNotContains(dir, contains) {
     return !containsBool;
 }
 
-module.exports = { checkImportsContains, checkImportsNotContains };
+module.exports = { checkFolderImportsContains, checkFolderImportsNotContains };
 
 //console.log(checkImportsContains('./src/router', 'express'));
