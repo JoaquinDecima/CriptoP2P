@@ -1,5 +1,19 @@
-const { getAllImportsInFolder, getAllImportsInFile } = require('./filesMamnager.cjs');
+const { getAllfilesContentInFolder, getContentInFile } = require('./filesMamnager.cjs');
 
+function getAllImportsInFolder(dir) {
+    let filesContent = getAllfilesContentInFolder(dir);
+    let imports = [];
+    filesContent.map(file => {
+        imports.push(file.filter(line => line.includes('import')))
+    });
+    return imports.map(file => file.map(line => line.replace(';', '')));
+}
+
+function getAllImportsInFile(file) {
+    let fileContent = getContentInFile(file);
+    let imports = fileContent.filter(line => line.includes('import'));
+    return imports.map(line => line.replace(';', ''));
+}
 
 function checkFileImportsContains(file, contains) {
     let imports = getAllImportsInFile(file);
