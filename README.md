@@ -70,12 +70,17 @@ La documentación de la API se encuentra en la ruta `/docs`
 
 ## Tests
 
-Para correr los tests
+Para correr los tests unitarios y de integración
 
 ```bash
 npm run test
 ```
 
+Para correr los tests de Arquitectura
+
+```bash
+npm run test:arch
+```
 
 ## Autor
 
