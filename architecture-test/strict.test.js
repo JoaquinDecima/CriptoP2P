@@ -26,7 +26,7 @@ describe("Verify strict", () => {
     it("Verify strict in tools", () => {
         expect(checkFolderNotUseStrict('./src/tools')).toBe(true);
     });
-    it("Verify strict in app.js", () => {
+    it("Verify strict in server.js", () => {
         expect(checkFileNotUseStrict('./src/server.js')).toBe(true);
     })
 });
